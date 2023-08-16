@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>N-vortex System</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link rel="stylesheet" href="vfield.css"/>
+    <script src="js/vfield.js" defer></script>
+    <script src="js/updates.js" defer></script>
+    <script src="js/controls.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <div id="help">
+      <ul>
+        <li><kbd></kbd>
+          <label>left-click + drag: rotate X/Y</label>
+        </li>
+        <li><kbd></kbd>
+          <label>middle-click + drag: translate X/Y</label>
+        </li>
+        <li><kbd></kbd>
+          <label>shift + click + drag: rotate/translate Z</label>
+        </li>
+        <li><kbd></kbd>
+          <label>mousewheel: zoom in/out</label>
+        </li>
+        <li><kbd></kbd>
+          <label>spacebar pauses/unpauses</label>
+        </li>
+        <li><kbd>a</kbd>
+          <label>add solution with random initial value</label>
+        </li>
+        <li><kbd>c</kbd>
+          <label>clone a solution with perturbation</label>
+        </li>
+        <li><kbd>C</kbd>
+          <label>clear all solutions</label>
+        </li>
+        <li><kbd>h</kbd>
+          <label>toggle head (point) visibility</label>
+        </li>
+        <li><kbd>[</kbd>
+          <label>decrease tail length</label>
+        </li>
+        <li><kbd>]</kbd>
+          <label>increase tail length</label>
+        </li>
+        <li><kbd>d</kbd>
+          <label>toggle rotational damping</label>
+        </li>
+        <li><kbd>?</kbd>
+          <label>toggle this menu</label>
+        </li>
+        <li>
+          <input id="length" type="range" min="2" max="12" step="1"/>
+          <label>tail = <span id="length-label"></span></label>
+        </li>
+        <li>
+          <input id="stepsize" type="range" min="0.0005" max="0.01" step="0.0005"/>
+          <label>step size = <span id="stepsize-label"></span></label>
+        </li>
+        <li>
+          <input id="steprate" type="range" min="2" max="12" step="1"/>
+          <label>step rate = <span id="steprate-label"></span></label>
+        </li>
+      </ul>
+      <h1>
+        <a href="https://github.com/skeeto/lorenz-webgl">Source Repository</a>
+      </h1>
+      <div id="stats"></div>
+    </div>
+    <canvas id="vfield"></canvas>
+  </body>
+</html>
