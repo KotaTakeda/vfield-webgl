@@ -9,8 +9,12 @@
  * @returns {!number[3]} newState
  */
 function rigidRotation(state, dt) {
-  function dx(x, y, z) { return -y/(x**2 + y**2)**0.5; }
-  function dy(x, y, z) { return x/(x**2 + y**2)**0.5; }
+  /**
+  * Corresponding to v-field induced from the stream function Psi(x, y, z) = z on the unit sphere
+  */
+  function radious(z) { return (1 - z**2)**0.5}
+  function dx(x, y, z) { return -y/(x**2 + y**2)**0.5*radious(z); }  // equal to -y on the unit sphere
+  function dy(x, y, z) { return x/(x**2 + y**2)**0.5*radious(z); }  // equal to x on the unit sphere
   function dz(x, y, z) { return 0; }
 
 
@@ -18,6 +22,7 @@ function rigidRotation(state, dt) {
   var y = state[1];
   var z = state[2];
 
+  // RK4
   var k1dx = dx(x, y, z);
   var k1dy = dy(x, y, z);
   var k1dz = dz(x, y, z);
