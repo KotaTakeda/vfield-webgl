@@ -14,7 +14,7 @@ function Vfield(canvas, updateFunc) {
     this.updateFunc = updateFunc;
 
     this.params = {
-        step_size: 0.001,
+        step_size: 0.005,
         steps_per_frame: 6,
         paused: false
     };
@@ -173,16 +173,20 @@ Vfield.create_index_array = function(gl, length) {
  * @returns {number[3]}
  */
 Vfield.generate = function() {
+    // sample from Uni(S^2).
     u = Math.random();
     v = Math.random();
     z = -2 * u + 1;
     return [
-        z,
         (1 - z*z)**0.5*Math.cos(2*Math.PI*v),
         (1 - z*z)**0.5*Math.sin(2*Math.PI*v),
+        z,
     ];
 };
+// TODO: Quasi Monte Carlo on S^2
 
+
+// TODO: 速度の絶対値に応じて色を変える
 /**
  * @returns {number[3]}
  */
@@ -190,17 +194,17 @@ Vfield.color = function(i) {
     var colors = [
         0x8d, 0xd3, 0xc7,
         0xff, 0xff, 0xb3,
-        // 0xbe, 0xba, 0xda,
-        // 0xfb, 0x80, 0x72,
-        // 0x80, 0xb1, 0xd3,
-        // 0xfd, 0xb4, 0x62,
-        // 0xb3, 0xde, 0x69,
-        // 0xfc, 0xcd, 0xe5,
-        // 0xd9, 0xd9, 0xd9,
-        // 0xbc, 0x80, 0xbd,
-        // 0xcc, 0xeb, 0xc5,
-        // 0xff, 0xed, 0x6f,
-        // 0xff, 0xff, 0xff
+        0xbe, 0xba, 0xda,
+        0xfb, 0x80, 0x72,
+        0x80, 0xb1, 0xd3,
+        0xfd, 0xb4, 0x62,
+        0xb3, 0xde, 0x69,
+        0xfc, 0xcd, 0xe5,
+        0xd9, 0xd9, 0xd9,
+        0xbc, 0x80, 0xbd,
+        0xcc, 0xeb, 0xc5,
+        0xff, 0xed, 0x6f,
+        0xff, 0xff, 0xff
     ];
     var base = (i * 3) % colors.length;
     return colors.slice(base, base + 3).map(function(x) { return x / 255; });

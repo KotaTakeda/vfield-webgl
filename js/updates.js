@@ -18,6 +18,20 @@ function rigidRotation(state, dt) {
   function dz(x, y, z) { return 0; }
 
 
+  return rk4(state, dx, dy, dz, dt);
+};
+
+function gibbsRotation1(state, dt) {
+  function poly(z) { return 0.0696 + 3*0.0104*z**2 + 5*0.1*z**4}
+  function dx(x, y, z) { return -y * 10 * poly(z); }  // equal to -y on the unit sphere
+  function dy(x, y, z) { return x * 10 * poly(z); }  // equal to x on the unit sphere
+  function dz(x, y, z) { return 0; }
+
+
+  return rk4(state, dx, dy, dz, dt)
+}
+
+function rk4(state, dx, dy, dz, dt) {
   var x = state[0];
   var y = state[1];
   var z = state[2];
@@ -56,5 +70,5 @@ function rigidRotation(state, dt) {
   newState[1] = y + (k1dy + 2*k2dy + 2*k3dy + k4dy) * dt / 6;
   newState[2] = z + (k1dz + 2*k2dz + 2*k3dz + k4dz) * dt / 6;
 
-  return newState;
-};
+  return newState
+}

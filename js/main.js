@@ -3,8 +3,9 @@ var controls = null;
 
 window.addEventListener('load', function() {
     var canvas = document.querySelector('#vfield');
-    vfield = Vfield.run(canvas, rigidRotation);
-    controls = new Controls(vfield);
+    this.vfield = Vfield.run(canvas, rigidRotation);  // Initialize the vfield with the rigidRotation function
+    // vfield = Vfield.run(canvas, gibbsRotation1);
+    this.controls = new Controls(this.vfield);
 
     window.addEventListener('keypress', function(e) {
         if (e.which === '?'.charCodeAt(0)) {
@@ -26,27 +27,14 @@ window.addEventListener('load', function() {
     window.setInterval(update_stats, 1000);
     controls.listeners.push(update_stats);
 
-    // var preset = document.querySelector('#preset');
-    // preset.addEventListener('change', function() {
-    //     if (preset.value === 'chaos') {
-    //         controls.clear();
-    //         controls.add();
-    //         for (var i = 0; i < 31; i++)
-    //             controls.clone();
-    //     } else if (preset.value === 'gentle') {
-    //         while (vfield.solutions.length < 32)
-    //             controls.add();
-    //         vfield.display.rotationd[0] = 0;
-    //         vfield.display.rotationd[1] = 0;
-    //         vfield.display.rotationd[2] = 0.007;
-    //         vfield.display.damping = false;
-    //     } else if (preset.value === 'bendy') {
-    //         while (vfield.solutions.length < 32)
-    //             controls.add();
-    //         controls.set_sigma(17.24);
-    //         controls.set_beta(1.1);
-    //         controls.set_rho(217);
-    //         vfield.display.scale = 1 / 65;
-    //     }
-    // });
+    var channel = document.querySelector('#channel');
+    channel.addEventListener('change', function() {
+        if (channel.value === 'rigid') {
+            this.vfield = Vfield.run(canvas, rigidRotation);
+        } else if (channel.value === 'gibbs1') {
+            console.log("gibbs1");
+            this.vfield = Vfield.run(canvas, gibbsRotation1);
+        }
+        this.controls = new Controls(this.vfield);
+    });
 });
